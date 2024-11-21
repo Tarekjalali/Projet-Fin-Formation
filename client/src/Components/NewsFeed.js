@@ -24,7 +24,7 @@ const LatestGames = () => {
           page: pageNumber, // Pass the current page number
           key: '8e1e6d29e9e04bcfa8bfba96435aa599', // API key
           dates: `${startYear}-01-01,${endYear}-12-31`, // Date range
-          exclude_tags: 'adult,nsfw,pornographic,hentai', // Exclude specific tags
+          exclude_tags: 'adult,nsfw,pornographic,hentai,sex', // Exclude specific tags
           search: searchQuery, // Search term (e.g., game name)
         },
       });
@@ -63,7 +63,8 @@ const LatestGames = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
-
+  const excludedGameNames = ['Game Name 1', 'Game Name 2', 'Game Name 3','porn'];
+  const excludedKeywords = ['sex', 'porn', 'hentai','porn'];
   return (
     <div>
      <div>
@@ -92,7 +93,11 @@ const LatestGames = () => {
       <h3>The following games are sourced from the <a href="https://rawg.io/" target="_blank" rel="noopener noreferrer">RAWG</a> API</h3>
 
       <div style={styles.gameList}>
-        {games.map((game) => (
+        {games.filter(game => {
+    const gameNameLower = game.name.toLowerCase(); // Convert to lowercase for case-insensitive comparison
+    return !excludedGameNames.includes(game.name.toLowerCase()) &&
+           !excludedKeywords.some(keyword => gameNameLower.includes(keyword.toLowerCase()));
+  }).map((game) => (
           <div key={game.id} style={styles.gameCard}>
             {game.background_image ? (
               <img
