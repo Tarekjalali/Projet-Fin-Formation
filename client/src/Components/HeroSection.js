@@ -23,8 +23,15 @@ const HeroSection = () => {
 
   return (
     <div style={heroSectionStyle }>
-      <h1>Welcome to GameRally</h1>
-      <p>Join the ultimate gaming experience</p>
+       <img 
+              src="https://i.ibb.co/6XQG9Ym/LOGO-removebg-preview.png" 
+              alt="Your Logo" 
+              className="rounded-lg" 
+              style={{ width: '110px', height: '110px', borderRadius: '10px'}}
+            />
+      <h1>Compete, Connect, Conquer. </h1>
+      <h1> The Game Starts Here.</h1>
+      
       <br></br>
       <div>
       <Link

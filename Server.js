@@ -19,16 +19,10 @@ app.use('/api/applications', appRouter);
 app.use('/api/news', newsRouter);
 
 
-app.use(express.static(path.join(__dirname, '/client/build')));
-console.log(__dirname)
 
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
 
-});
 
-// Start the server
 app.listen(process.env.port, () =>
   console.log(`Server is running on port ${process.env.port}`)
 );
