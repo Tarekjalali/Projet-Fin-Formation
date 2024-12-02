@@ -27,8 +27,8 @@ const MyApplications = () => {
     <div className="flex flex-wrap gap-4">
 
         {myApps && myApps.length > 0 ? (
-            myApps.map((el) => (
-              <MyApplicationsCard el={el}/>
+            myApps.map((el,i,t) => (
+              <MyApplicationsCard el={el} key={i}/>
             ))
         ) : (
             <p>

@@ -18,9 +18,9 @@ const MyEvents = () => {
     return (
         <div className="flex gap-4  overflow-x-auto whitespace-nowrap ">
         {myEvents && myEvents.length > 0 ? (
-            myEvents.map((el) => (
+            myEvents.map((el,i,t) => (
                 <div key={el._id} className="flex-shrink-0">
-                <MyEventsCard el={el} userId={user._id} actionType="apply" className="w-60" />
+                <MyEventsCard el={el} userId={user._id} actionType="apply" className="w-60" key={i} />
                 </div>
             ))
         ) : (

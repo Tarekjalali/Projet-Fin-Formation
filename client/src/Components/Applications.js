@@ -24,7 +24,7 @@ const Applications = () => {
       
       
       {
-       Apps && Apps.map((el,i,t)=><>{<CardApplication el = {el} ></CardApplication>}</>)
+       Apps && Apps.map((el,i,t)=><>{<CardApplication el = {el} key={i} ></CardApplication>}</>)
       }
       
     </div>

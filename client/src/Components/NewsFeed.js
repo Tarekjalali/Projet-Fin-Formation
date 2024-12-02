@@ -97,20 +97,20 @@ const LatestGames = () => {
     const gameNameLower = game.name.toLowerCase(); // Convert to lowercase for case-insensitive comparison
     return !excludedGameNames.includes(game.name.toLowerCase()) &&
            !excludedKeywords.some(keyword => gameNameLower.includes(keyword.toLowerCase()));
-  }).map((game) => (
+  }).map((game,i,t) => (
           <div key={game.id} style={styles.gameCard}>
             {game.background_image ? (
               <img
                 src={game.background_image}
                 alt={game.name}
                 style={styles.gameImage}
-              />
+               key={i}/>
             ) : (
               <img
                 src="https://i.pinimg.com/736x/91/eb/70/91eb707b2e0fd17909534b39c0d0ed76.jpg"
                 style={{ width: '260.33px', height: '146.43px' }}
                 alt="Default"
-              />
+              key={i}/>
             )}
             <div style={styles.gameDetails}>
               <h2>{game.name}</h2>
