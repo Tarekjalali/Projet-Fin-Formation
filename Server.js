@@ -18,10 +18,15 @@ app.use('/api/events', eventRouter);
 app.use('/api/applications', appRouter);
 app.use('/api/news', newsRouter);
 
+// Serve static files from the React app (after build)
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
 
-
-
-
+  // All other routes should return the React app
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 app.listen(process.env.port, () =>
   console.log(`Server is running on port ${process.env.port}`)

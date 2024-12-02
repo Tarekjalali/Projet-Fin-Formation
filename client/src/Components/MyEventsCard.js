@@ -1,11 +1,18 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { deleteEvent } from '../Redux/Actions/EventsActions';
 
 const MyEventsCard = ({ el, userId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDelete = () => {
+    dispatch(deleteEvent(el._id, location, navigate, userId));
+    setIsModalOpen(false); // Close the modal after deleting
+  };
 
   return (
     <div
@@ -49,13 +56,41 @@ const MyEventsCard = ({ el, userId }) => {
             Update
           </button>
           <button
-            onClick={() => dispatch(deleteEvent(el._id, location, navigate, userId))}
+            onClick={() => setIsModalOpen(true)}
             className="px-3 py-2 text-xs font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800"
           >
             Delete
           </button>
         </div>
       </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div
+          id="popup-modal"
+          className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50"
+        >
+          <div className="bg-white rounded-lg shadow dark:bg-gray-700 max-w-md p-6">
+            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this event?
+            </h3>
+            <div className="flex justify-end space-x-2">
+              <button
+                onClick={handleDelete}
+                className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800"
+              >
+                Yes, I'm sure
+              </button>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+              >
+                No, cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
